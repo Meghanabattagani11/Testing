@@ -1,0 +1,17 @@
+
+public class whileloop {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+int count = 1; // Initialize a counter
+        
+        while (count <= 5) { // Condition: check if count is less than or equal to 5
+            System.out.println("Count: " + count); // Print the current value of count
+            count++; // Increment count by 1
+        }
+        
+        System.out.println("Loop finished!");	
+	}
+
+}
