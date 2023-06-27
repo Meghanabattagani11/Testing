@@ -1,0 +1,46 @@
+package classobjectconstructordemo;
+
+public class Dog {
+	
+		   String breed;
+		   int age;
+		   String color;
+
+		   void barking() {
+		   }
+		   void hungry() {
+		   }
+
+		   void sleeping() {
+		   }}
+
+
+package classobjectconstructordemo;
+
+public class Puppy {
+
+		   public Puppy(String name) {
+		      // This constructor has one parameter, name.
+		      System.out.println("Passed Name is :" + name );
+		   }
+
+		   public static void main(String []args) {
+		      // Following statement would create an object myPuppy
+		      Puppy myPuppy = new Puppy( "tommy" );
+		   }
+		   }
+
+
+package classobjectconstructordemo;
+
+public class Puppy1 {
+	public Puppy1() {
+	   }
+
+	   public Puppy1(String name) {
+	      // This constructor has one parameter, name.
+	   }}
+
+
+
+			
