@@ -1,0 +1,63 @@
+package Inheritance;
+
+public class A  extends D{
+      public void day(){
+    	  System.out.println("Today is Tuesday");  
+      }
+	public static void main(String[] args){
+	A a =new A();
+	a.day();
+	a.date();
+	a.nextyear();
+	}	
+}
+package Inheritance;
+
+public class B  extends D {
+	public void month(){
+  	  System.out.println("it is a month of june");  
+    }
+	public static void main(String[] args){
+	B b =new B();
+	b.month();
+	b.date();
+	b.nextyear();
+	}	
+}
+package Inheritance;
+
+public class C extends D {
+     public void year(){
+    	  System.out.println("it is 2023");  
+      }
+  	public static void main(String[] args){
+  	C c =new C();
+  	c.year();
+  	c.date();
+  	c.nextyear();
+  	}	
+  }
+
+package Inheritance;
+
+public class D extends E {
+      public void date(){
+    	  
+    	  System.out.println("it is 27-06-2023");
+      }
+}
+package Inheritance;
+
+import TypeCastingDemo.Calculator;
+
+public class E  extends Calculator{
+        public void nextyear(){
+        	System.out.println("it will be 2024 next year");
+        }
+        public static void main(String[] args){
+        E e	 = new E();
+        	e.add(20, 5);
+        
+        
+        }
+}
