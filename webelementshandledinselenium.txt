@@ -1,0 +1,156 @@
+package demo;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class ExplicitWaitDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+        //1) Open the browser
+		ChromeDriver driver = new ChromeDriver();
+	//2) Maximize it
+		driver.manage().window().maximize();
+		
+		//3) Navigate to application
+         driver.get("https://whitecircleschool.com/explicit-wait-demo1/");
+         
+         //4) Click on 'Start' button
+         driver.findElement(By.id("start")).click();
+         
+         //5) Verify the text "Hello World!' appears on the web-page
+         String expectedTest = "Hello World!";
+	    //Wait for the text to 
+         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish > h4")));
+         
+         String actualTest = driver.findElement(By.cssSelector("#finish > h4")).getText();
+       
+         if(actualTest.equals(expectedTest)) {
+        	 System.out.println("Test Case Passed");
+         }
+         else {
+        	 System.out.println("Test Case Failed");
+         }
+        	//6) Close the browser
+         driver.quit();
+        	 
+         }
+	
+	
+	
+	
+	}
+
+
+
+
+package demo;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class RadioBtnAndCheckBoxes {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+       //1)Open the browser
+		ChromeDriver driver = new ChromeDriver();
+		//2) Maximize it
+				driver.manage().window().maximize();
+		//3) Navigate to application
+				driver.get("https://letcode.in/radio");
+				
+				//4) Select 'Yes' adio button from 'Select any one' option
+				driver.findElement(By.id("yes")).click();
+				
+				//5) Check last check box
+				driver.findElement(By.xpath("(//input[contains(@type,'checkbox')])[2]")).click();
+	}
+
+}
+  
+
+
+  package demo;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class DropDownDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//1) Open the browser
+				ChromeDriver driver = new ChromeDriver();
+			//2) Maximize it
+				driver.manage().window().maximize();
+				//3) Navigate to application
+				driver.get("https://letcode.in/dropdowns");
+				
+				//4)Select 'Java' from 3rd drop-down
+				WebElement languages = driver.findElement(By.id("lang"));
+				Select select = new Select(languages);
+				select.selectByVisibleText("Java");
+				
+	
+	}
+
+}
+
+
+   package demo;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebtableDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//1) Open the browser
+		ChromeDriver driver = new ChromeDriver();
+	//2) Maximize it
+		driver.manage().window().maximize();
+		//3) Navigate to application
+		driver.get("https://letcode.in/table");
+		
+		//4)Sum up all the prices shown in the table amd verify it should be equal to 858
+		WebElement firstTable = driver.findElement(By.id("shopping"));
+		
+		//4.1) Capture all the rows of the table and put them in a list
+          List<WebElement> rows = firstTable.findElements(By.tagName("tr"));
+          
+          //4.2) From each row capture all the td elements in a separate list and then get the 2nd td element
+          //from the new list
+          int sum = 0;
+          for(int i=1; i<rows.size();i++) {
+        	  WebElement row = rows.get(i);
+        	  List<WebElement> columns = row.findElements(By.tagName("td"));
+        	  
+        	  int price = Integer.parseInt(columns.get(1).getText());
+        	  sum = sum + price;
+          }
+          int expectedSum = 858;
+          if(expectedSum == sum){
+        	 System.out.println("Test Case Passed");
+          }
+          else {
+        	  System.out.println("Test Case Failed");
+          }
+        	  
+          }
+	
+	
+	
+	}
+
