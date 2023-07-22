@@ -1,0 +1,288 @@
+package in.amazon.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LandingPage {
+ 
+	//Locator of the web-elements on Landing page of amazon
+	//private WebElement mobiles = driver.findElement(By.linkText("Mobiles"));
+	//mobiles.click();
+	private Actions actions;
+	@FindBy(linkText="Mobiles")
+	private WebElement mobiles;
+	
+	@FindBy(id = "nav-link-accountList")
+	private WebElement signInMenu;
+	
+	@FindBy(linkText = "Sign in")
+    private WebElement signInBtn;
+	
+	public LandingPage(WebDriver driver) {
+		PageFactory.initElements(driver,this);
+		actions = new Actions(driver);
+	
+	}
+	
+	public void clickMoblies() {
+		mobiles.click();
+	}
+	public void hoverOverHelloSignInMenu() {
+		actions.moveToElement(signInMenu).build().perform();
+		
+	}
+   public void clickSignInBtn() {
+	   signInBtn.click();
+   }
+
+}
+package in.amazon.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class BuyPhone {
+
+	@FindBy(id="buy-now-button")
+	private WebElement buyNowBtn;
+	
+	public BuyPhone(WebDriver driver) {
+		PageFactory.initElements(driver,this);
+		
+	}
+
+public void clickBuyNowBtn() {
+	buyNowBtn.click();
+}
+
+}
+package in.amazon.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class AllMobileBrands {
+  private Actions actions;
+  
+  @FindBy(linkText = "Mobiles & Accessories")
+  private WebElement mobilesAndAccessories;
+
+	@FindBy(linkText = "Apple")
+	private WebElement apple;
+	
+	public AllMobileBrands(WebDriver driver) {
+		PageFactory.initElements(driver, this);
+		actions = new Actions(driver);
+		}
+	
+	public void hoverOverMobilesAndAccessories() {
+		actions.moveToElement(mobilesAndAccessories).build().perform();
+	}
+	public void clickApple() {
+		apple.click();
+	}
+}
+		
+package in.amazon.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class ApplePhones {
+     @FindBy(xpath = "(//div[contains(@class,'card-container')])[1]")
+     private WebElement firstMobile;
+     
+      public ApplePhones(WebDriver driver) {
+    	 PageFactory.initElements(driver,this);
+    	 
+    }
+      public void clickFirstMobile() {
+    	  firstMobile.click();
+    	  
+     }
+}
+	package in.amazon.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class SignIn {
+	
+     @FindBy(xpath="//h1[contains(@class,'small')]")
+     private WebElement signInText;
+
+     @FindBy(id = "ap_email")
+     private WebElement emailTextBox;
+     
+     @FindBy(id = "continue")
+     private WebElement continueBtn;
+     
+     @FindBy(xpath = "//span[contains(@class,'a-list-item')]")
+     private WebElement errMsg;
+     
+     public SignIn(WebDriver driver) {
+    	 PageFactory.initElements(driver,this);
+    	 
+    	 
+     }
+public String getSignInText() {
+	String text = signInText.getText();
+	return text;
+}
+public void enterEMail(String email) {
+	emailTextBox.clear();
+	emailTextBox.sendKeys(email);
+	
+}
+public void clickContinueBtn() {
+	continueBtn.click();
+}
+public String getErrMsg() {
+	String Message = errMsg.getText();
+	return Message;
+}
+
+}
+
+package in.amazon.testscripts;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class BaseTest {
+	 WebDriver driver;        
+		@BeforeTest
+		public void launchApplication() {
+			//1 Open the browser
+			driver = new ChromeDriver();
+			
+			//2. Maximize to https://www.amazon.in/
+			driver.manage().window().maximize();
+			
+			//Navigate to 
+			driver.get("https://amazon.in");
+			
+		}
+
+		//11. Close the browser
+	@AfterTest
+	public void closeBrowser() {
+		driver.quit();
+	}
+}
+
+package in.amazon.testscripts;
+
+import java.util.ArrayList;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import in.amazon.pages.AllMobileBrands;
+import in.amazon.pages.ApplePhones;
+import in.amazon.pages.BuyPhone;
+import in.amazon.pages.LandingPage;
+import in.amazon.pages.SignIn;
+
+public class BuyMobilePhoneTest extends BaseTest {
+  
+@Test
+
+public void buyMobile() {
+	//4.Click on 'Mobiles'in the navigation bar
+	  LandingPage landingPage = new LandingPage(driver);
+	  landingPage.clickMoblies();
+	
+	
+	//5.Hover the pointer over 'Mobiles & Accessories'
+	AllMobileBrands allMobileBrands = new AllMobileBrands(driver);
+	allMobileBrands.hoverOverMobilesAndAccessories();
+	  
+	  //6.Click on 'Apple' in the sub-menu
+	allMobileBrands.clickApple();
+	
+	//7.Click on first available phone.
+	ApplePhones applePhones = new ApplePhones(driver);
+	applePhones.clickFirstMobile();
+	
+	
+    //8.Switch focus on new tab
+	ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+	driver.switchTo().window(tabs.get(1));
+	
+	//9.Click on 'Buy Now' button
+	BuyPhone buyPhone =new BuyPhone(driver);
+	buyPhone.clickBuyNowBtn();
+	
+	
+	//10.Verify user sees the text 'Sign in' on the last page.
+
+SignIn signIn = new SignIn(driver);
+String expectedText = "Sign in";
+String actualText = signIn.getSignInText();
+Assert.assertEquals(actualText, expectedText);
+
+}
+}
+
+package in.amazon.testscripts;
+
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import in.amazon.pages.LandingPage;
+import in.amazon.pages.SignIn;
+
+public class VerifyErrorMessageTest extends BaseTest {
+	  
+		@Test
+		
+		public void verifyErrorMsg() {
+			//4)HOver the pointer over "Hello Sign in' menu
+			LandingPage landingPage = new LandingPage(driver);
+			landingPage.hoverOverHelloSignInMenu();
+			
+			//5) Click on 'Sign-in' button in the sub-menu
+			landingPage.clickSignInBtn();
+			
+			//6) Enter invalid username in the email textbox
+			SignIn signIn = new SignIn(driver);
+			signIn.enterEMail("batman554466@gmail.com");
+			
+			//7) Click on 'Continue' button
+			signIn.clickContinueBtn();
+			
+			//8)Verify the error message -'we cannot find an account with that email
+			//address is displayed to the user
+		String expectedErrMsg = "We cannot find an account with that email address";
+		String actualErrMsg = signIn.getErrMsg();
+		Assert.assertEquals(actualErrMsg, expectedErrMsg);
+		
+		}
+        
+}
+
+	
+	
+	
+	
+
+
