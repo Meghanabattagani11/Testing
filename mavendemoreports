@@ -1,0 +1,116 @@
+package com.simplilearn.MavenDemo;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class ExplicitWaitDemo {
+	ChromeDriver driver;
+
+	@BeforeTest
+	public void demo() {
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		//3) Navigate to application
+        driver.get("https://whitecircleschool.com/explicit-wait-demo1/");
+        
+		
+	}
+	@Test
+	public void mainMethod() {
+		//4) Click on 'Start' button
+        driver.findElement(By.id("start")).click();
+        
+        //5) Verify the text "Hello World!' appears on the web-page
+        String expectedTest = "Hello World!";
+	    //Wait for the text to 
+      //  WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+     //   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish > h4")));
+        
+        String actualTest = driver.findElement(By.cssSelector("#finish > h4")).getText();
+        Assert.assertEquals(expectedTest, actualTest);
+        
+	}
+	@AfterTest
+	public void closeBrowser() {
+		driver.quit();
+	}
+}
+
+	        
+
+package demo2;
+
+import org.testng.annotations.Test;
+
+public class GroupingDemo {
+    
+	@Test(groups = "Luxury Cars")
+	public void Car1() {
+		System.out.println("Mercedes");
+	}
+	@Test(groups = "Luxury Cars")
+	public void Car2() {
+		System.out.println("BMW");
+		
+	}
+	@Test(groups = {"Car",  "Luxury Cars"})
+	public void Car3() {
+		System.out.println("Toyota");
+	}
+	@Test(groups = " Car")
+	public void Car4() {
+		System.out.println("Hyundai");
+		
+	}
+	@Test(groups = " Car")
+	public void Car5() {
+		System.out.println("Honda");
+	}
+}
+
+
+
+package com.simplilearn.MavenDemo;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class VerifyTitle {
+       ChromeDriver driver;
+       
+       @BeforeTest
+       public void launchApplication() {
+    	   //1)Open the browser
+    	   driver = new ChromeDriver();//Class object = new
+    	   
+    	   //2) navigate to application 
+    	   //object.method()
+    	   driver.get("https://facebook.com");	   
+       }
+       @Test
+       public void titleVerification() {
+    	   //3)Verify the visitor on the page sees the title - 'Facebook - log in or sign in
+    	   //up
+    	   String expectedTitle = "Facebook – log in or sign up";
+   		String actualTitle = driver.getTitle();
+    	   Assert.assertEquals(actualTitle, expectedTitle);
+       }
+       @AfterTest
+       public void closeBrowser() {
+    	   driver.quit();
+       
+       }
+	
+	
+}
